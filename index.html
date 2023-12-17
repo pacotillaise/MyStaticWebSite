@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phrase Dynamique</title>
+    <link rel="stylesheet" type="text/css" href="static/styleWebApp.css">
+    <script src="static/js/html2canvas.min.js"></script>
+</head>
+<body>
+    <h1>Toutes les phrases :</h1>
+    <button onclick="captureImage()">Convertir en image</button>
+    <img src="" class="illustration" alt="Image au format png" title="Click droit pour télécharger votre image!" />
+    <div class="container">
+        {% for phrase in phrases %}
+        <div class="phrase-box">
+            <p>{{ phrase.text }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <form action="/ajouter_phrase" method="post">
+        <label id="phraseLabel" for="phrase">Ajouter une nouvelle phrase :</label>
+        <input type="text" id="phrase" name="phrase" required>
+        <input type="submit" value="Ajouter">
+    </form>
+
+    <script>
+        function captureImage() {
+            html2canvas(document.querySelector('.phrase-box:last-child')).then(function (canvas) {
+                var imgData = canvas.toDataURL('image/png');
+                document.querySelector('.illustration').src = imgData;
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+      This is an HTML comment
+      You can write text in a comment and the content won't be visible in the page
+    -->
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+
+    <!--
+          This is the page head - it contains info the browser uses
+          Like the title, which appears on the browser tab but not inside the page
+        <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <!-- Your existing head content -->
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+
+    <!-- Your existing head content -->
+    <!-- The website stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- The website JavaScript file -->
+    <script src="/script.js" defer></script>
+
+    <!-- JavaScript code to generate month sections -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Months data with names and paragraphs
+            const monthsData = [
+                { name: "January", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ..." },
+                { name: "February", content: "Curabitur ac justo vel justo commodo ullamcorper sit amet vel libero." },
+                // Add data for each month (March to December)
+            ];
+
+            // Function to generate HTML for a month section
+            function generateMonthSection(month) {
+                const monthSection = document.createElement("div");
+                monthSection.className = "month-section";
+                monthSection.innerHTML = `<h2><strong>${month.name}</strong></h2>`;
+                month.content.forEach((paragraph) => {
+                    const pElement = document.createElement("p");
+                    pElement.textContent = paragraph;
+                    monthSection.appendChild(pElement);
+                });
+                return monthSection;
+            }
+
+            // Get the content element to append month sections
+            const contentElement = document.querySelector(".content[role=main]");
+
+            // Append month sections to the content element
+            monthsData.forEach((month) => {
+                const monthSection = generateMonthSection(month);
+                contentElement.appendChild(monthSection);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content" role="main">
+            <p class="title">Hello World!</p>
+
+            <!-- The JavaScript code will dynamically generate month sections here -->
+
+            <div class="instructions">
+                <h2>Using this project</h2>
+                <p>
+                    This is the Glitch <strong>Hello Website</strong> project. You can
+                    use it to build your own site. Check out the code in the editor and open
+                    the <span class="fileopener" data-file="TODO.md" data-line="0">TODO</span> for next steps!
+                </p>
+                <!--  🚧 TODO: ADD BUTTON HERE -->
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <!-- Your existing footer content -->
+    </footer>
+</body>
+</html>
